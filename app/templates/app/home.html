@@ -1,0 +1,277 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block css %}
+	.gr {
+		color: linear-gradient(to right, red , yellow);
+	}
+	.gradient-color {
+		background: -webkit-linear-gradient(right, red , yellow);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.carousel .carousel-indicators button {
+		width: 10px;
+		height: 10px;
+		border-radius: 100%;
+	}
+{% endblock css %}
+
+{% block content %}
+<div class="row mt-5">
+<div class="col-12 col-sm-6">
+	<h2>AI Photo Enhancer to Improve Image <span class="gradient-color">Quality</span></h2>
+	<p>Get everything you need to effortlessly enhance your photo quality, increase resolution, restore old details, reduce noise, balance color level, and optimize your images automatically with AI image enhancer for free. All it takes is just a single click and a few seconds.</p>
+</div>
+
+<div class="col-sm-6">
+	<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+</div>
+</div>
+
+<section class="bg-dark">
+<div class="col-12 mt-5 text-center">
+	<h2>Introducing New Generative Image-AI Tool</h2>
+	<p>Welcome to the most demanding image enhancer tool that will enhance image quality, upscale resolution up to 16X, texture, and everything you need to make your image more appealing.</p>
+	<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+</div>
+</section>
+
+<div class="col-12 mt-5 text-center">
+	<h2>Accelerate your photo enhancement <span class="gradient-color">Workflow</span></h2>
+	<p>Editing your photos has never been easier and faster. This tool gives you artificial intelligence superpowers that assist with the most time-consuming and tiresome editing tasks, from fixing blurry pictures to making them sharpen, cleaner, and more attractive than ever before.</p>
+	<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+</div>
+
+<div class="row mt-5 ">
+<div class="col-sm-6">
+	<h2>Restore old photos to live them again</h2>
+	<li>Have an old, blurry, and black-and-white image of your grandparents or childhood in your storage, do not worry about it, upload it here and wait just seconds to see the result.</li>
+	<li>Pics Enhancer makes the image unblur, increase the resolution, adjusts the color temperature, and brings back the originality with clarity to your old photos in a blink of an eye.</li>
+</div>
+
+<div class="col-sm-6">
+	<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+</div>
+</div>
+
+<div class="row mt-5 ">
+
+
+	<div class="col-sm-6">
+		<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+	</div>
+	<div class="col-sm-6">
+		<h2>Take your self-portrait to the next level</h2>
+		<li>Never let your skin issues or photography mistakes ruin your selfie. Try out this portrait enhancement feature that automatically adjusts exposure, fixes skin issues (such as fine lines, wrinkles, open pores, and acne), adjusts lighting, and maintains natural skin texture to help you look best in photos that you ever dreamed of.</li>
+		<li>What's more, with photo enhancer, you can engage with the audience on social media by retouching your self-portrait and stunning HD upgrade.</li>
+</div>
+</div>
+
+
+<div class="row mt-5">
+	<h1 class="text-center mb-5">How does a photo enhancer work?</h1>
+	
+	
+
+	<div class="col-sm-6">
+		<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+	</div>
+	<div class="col-sm-6">
+		<h3>You and your expected image is just few clicks away</h3>
+	
+		<div class="m-5">
+		<div class="row">
+		<div class="col-4">
+			<i class="fa fa-upload fa-5x gradient-color" aria-hidden="true"></i>
+		</div>
+		<div class="col-8">
+		<h4>Upload your <span class="gradient-color">Image</span></h4>
+			<p>Choose the image you want to enhance from your device or simply drag and drop it here in JPG or PNG format.</p>
+		</div>
+		<div class="col-4">
+			<i class="gradient-color fa-duotone fa-camera-retro fa-5x"></i>
+		</div>
+		<div class="col-8">
+		<h4>Let the machine do the <span class="gradient-color">Work</span></h4>
+			<p>Focus your time and efforts on completing other tasks and watch us increase the quality, resolution, and sharpness of the photos that you deserve.</p>
+		</div>
+		<div class="col-4">
+			<i class="gradient-color fa-camera-retro fa-5x"></i>
+		</div>
+		<div class="col-8">
+		<h4>Be ready to blow your <span class="gradient-color">Mind</span></h4>
+			<p>Finally, your image is now ready to download, use wherever you need, and share with whoever you want. The whole process takes just a few seconds and one click.</p>
+		</div>
+		</div>
+	</div>
+	</div>
+</diV>
+
+<div class="row mt-5 ">	
+	<div class="col-sm-6">
+		<h2>The Ultimate Image Upscaler Tool Powered By AI</h2>
+		<p>Increase image size and sharpen blurry or out-of-focus photos in one click, with a powerful AI image upscaler</p>
+		<a href="" class="btn btn-outline-primary">Get Started Now</a>
+	</div>
+
+	<div class="col-sm-6">
+		<img src="{% static 'images/uploads.png' %}" class="img-fluid" alt="image">
+	</div>
+</div>	
+
+<div class="row mt-5 ">	
+	<div class="col-sm-4">
+		<h4>Creators and users love our <span class="gradient-color">platform</span></h4>
+		<p>Don’t believe us. Hear from our customers who really tried our free photo enhancer tool and shared their feedback with us.</p>
+	</div>
+
+	<div class="col-sm-8">
+		<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+			<div class="card">
+				<div class="card-body m-5">
+				<div class="carousel-item active">
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<img src="..." class="d-block w-100" alt="...">
+					Creators and users love our platform
+					Don’t believe us. Hear from our customers who really tried our free photo enhancer tool and shared their feedback with us.
+				</div>
+				<div class="carousel-item">
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<img src="..." class="d-block w-100" alt="...">
+					Creators and users love our platform
+					Don’t believe us. Hear from our customers who really tried our free photo enhancer tool and shared their feedback with us.
+				</div>
+				<div class="carousel-item">
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<i class="fa fa-star" style="color: yellow;"></i>
+					<img src="..." class="d-block w-100" alt="...">
+					Creators and users love our platform
+					Don’t believe us. Hear from our customers who really tried our free photo enhancer tool and shared their feedback with us.
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+	<h1 class="text-center mt-5"><span class="gradient-color">Frequently</span> Asked Questions</h1>
+
+
+<div class="col-12 shadow-sm p-5 mb-5 bg-body-tertiary rounded">	
+	<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Accordion Item #1
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Accordion Item #2
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% comment %}
+<div class="container">
+<div class="row my-3 mb-5 row-cols-1 row-cols-md-3 g-4">
+	{% if results %}
+	
+			{% for key, values in results.items %}
+
+			<div class="col-4 mt-4">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+      <div class="card-body" style="color: black;">
+		{% if key == 'L' %}
+			<h4 class="card-title">Loses</h4>
+			<h1 class="card-title">{{values|length}}</h1>
+		{% elif key == 'W' %}
+			<h4 class="card-title">Wins</h4>
+			<h1 class="card-title">{{values|length}}</h1>
+		{% elif key == 'D' %}
+			<h4 class="card-title">Draws</h4>
+			<h1 class="card-title">{{values|length}}</h1>
+		{% else %}
+			<h4 class="card-title">{{key}}</h4>
+			<h1 class="card-title">{{values|length}}</h1>
+		{% endif %}
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Season</th>
+					<th scope="col">Club</th>
+					<th scope="col">Scoreline</th>
+					<th scope="col">MatchWeek</th>
+				</tr>
+			</thead>
+				{% for v in values %} 
+				<tbody>
+					<tr class="">
+					<th scope="row">{{v.season}}</th>
+					<td><img src="{{ v.club_against.logo_url }}" width="50px" height="50px" class="img-fluid" alt="{{ v.club_against }}"></td>
+					<td>{{ v.goals_scored }} - {{ v.goals_against }}</td>
+					{% if v.matchweek == 0 %}
+						<td>{{ v.tournament }}</td>
+					{% else %}
+						<td>MatchWeek: {{ v.matchweek }}</td>
+					{% endif %}
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+	{% endfor %}
+{% endcomment %}
+
+
+	
+{% endblock content %}

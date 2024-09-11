@@ -1,0 +1,214 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-806559881"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-806559881');
+</script>
+    <meta charset="utf-8">
+
+    <title>TheFootballAnalyst {% block title %}{% endblock title %}- {% block title_suffix %} {% endblock title_suffix %}</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    {% block meta_description %}
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    {% endblock meta_description %}
+	
+	
+    <meta property="og:url"           content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{ request.META.HTTP_HOST }}"/>
+	{% block facebook_meta %}
+	<meta property="og:title"         content=""/>
+    <meta property="og:description"   content="" />
+	{% endblock facebook_meta %}
+    <meta property="og:image"         content="{{ request.build_absolute_uri }}{% static 'images/header.jpg' %}" />
+    <meta name="google-site-verification" content="dHuAYWpHwsgJMaPbyJS4FhrBU4uD1iHbm4QgEwrLYFg" />
+	{% block meta_desc %}{% endblock meta_desc %}
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap links and Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="manifest" crossorigin="use-credentials" href="{% static 'js/manifest.json' %}" />
+	
+	<!-- Slick Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+	
+	<style>
+		body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6  {
+			font-family: "Quicksand" !important;
+		}
+
+		.gradient-color {
+			background: -webkit-linear-gradient(right, red , yellow);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.btn-outline-primary {
+			background: -webkit-linear-gradient(right, red , yellow) !important;
+			background-color: -webkit-linear-gradient(right, red , yellow) !important;
+			border-color: none !important;
+			color: white !important;
+		}
+		.btn-primary:hover,
+		.btn-primary:active,
+		.btn-primary:visited,
+		.btn-primary:focus {
+			background-color: DarkBlue !important;
+			border-color: DarkBlue !important;
+		}
+		{% block css %}
+		{% endblock css %}
+	</style>
+	
+	<!-- Ads -->
+	{% block ads_script %}
+	<!-- Adsterra -->
+	<script type='text/javascript' src='//pl23391657.highcpmgate.com/41/45/9e/41459ec5448c0c02e36ad59fb07911f2.js'></script>
+	{% endblock ads_script %}
+	
+	{% block ads %}
+	<meta name="monetag" content="502c869fbf32d4f921363e7d582a829e">
+	
+	<script src="https://alwingulla.com/88/tag.min.js" data-zone="69369" async data-cfasync="false"></script>
+	{% endblock ads %}
+	
+</head>
+<body>
+<div id=”divInstallApp”></div>
+<div class="container-fluid">
+		<div class="row mt-5">
+
+			{% block navigation %}
+			{% endblock navigation %}
+			
+			{% if messages %}
+				{% for message in messages %}
+					<div class="mt-5 alert alert-{{ message.tags }}">
+						<strong>{{ message }}</strong>
+					</div>
+				{% endfor %}
+			{% endif %}
+			
+			{% if request.user.user_credits == 0 %}
+				<div class="mt-5 alert alert-warning">
+						<strong>You are now using the free version <a href="{% url 'payment-page' %}">Payment</a></strong>
+				</div>
+			{% endif %}
+
+			{% block content %}
+			{% endblock content %}
+
+			{% block ads_ %}
+			<script async="async" data-cfasync="false" src="//pl23383023.highcpmgate.com/9eb8cc7d386b25d3577662a96f56de78/invoke.js"></script>
+			<div id="container-9eb8cc7d386b25d3577662a96f56de78"></div>
+
+			<script type='text/javascript' src='//pl23399228.highcpmgate.com/81/df/c4/81dfc490ed55eb24f13bd9db8b617710.js'></script>
+			{% endblock ads_ %}
+
+			{% block footer %}
+			{% endblock footer %}
+		</div>
+	</div>
+
+
+	<script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("{% static 'js/serviceworker.js' %}", { scope: "{{ request.META.HTTP_HOST }}" })
+          .then((registration) => {
+            registration.unregister().then((boolean) => {
+            });
+          })
+          .catch((error) => {
+
+          });
+          // Befor install prompt start
+          window.addEventListener('beforeinstallprompt', event => {
+          event.preventDefault();
+          var installDiv = document.getElementById('divInstallApp');
+          installDiv.innerHTML = '<button id="installApp" class="btn btn-outline-secondary ms-1">Install App</button>';
+          installDiv.addEventListener('click', () => {
+            event.prompt();
+            installDiv.innerHTML = ""
+          });
+        });
+        // Befor install prompt end
+      }
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	
+	<!--Slick config-->
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript">
+		$(document).on('ready', function() {
+
+			$('.img-slider').slick({
+				centerMode: true,
+				centerPadding: '60px',
+				slidesToShow: 3,
+				responsive: [
+					{
+						breakpoint: 768,
+						settings: {
+							arrows: false,
+							centerMode: true,
+							centerPadding: '40px',
+							slidesToShow: 1
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							arrows: false,
+							centerMode: true,
+							centerPadding: '40px',
+							slidesToShow: 1
+						}
+					}
+				]
+			});
+		});
+    </script>
+
+	{% block js %}
+	{% endblock js %}
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Bootstrap 5 switch</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- Bootstrap 5 switch -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked> <!-- Set the switch to "checked" by default -->
+            <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+        </div>
+		
+		
+			 <h1>Toggle Dark/Light Mode</h1>
+		                <!-- Example Bootstrap Components -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        This is a Bootstrap card.
+                    </div>
+                </div>
+
+                <div class="accordion mt-4" id="exampleAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Accordion Item #1
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#exampleAccordion">
+                            <div class="accordion-body">
+                                This is the first item's accordion body.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="mt-4">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const htmlElement = document.documentElement;
+                const switchElement = document.getElementById('darkModeSwitch');
+
+                // Set the default theme to dark if no setting is found in local storage
+                const currentTheme = localStorage.getItem('bsTheme') || 'dark';
+                htmlElement.setAttribute('data-bs-theme', currentTheme);
+                switchElement.checked = currentTheme === 'dark';
+
+                switchElement.addEventListener('change', function () {
+                    if (this.checked) {
+                        htmlElement.setAttribute('data-bs-theme', 'dark');
+                        localStorage.setItem('bsTheme', 'dark');
+                    } else {
+                        htmlElement.setAttribute('data-bs-theme', 'light');
+                        localStorage.setItem('bsTheme', 'light');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

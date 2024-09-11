@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+
+{% block content %}
+<div class="container">
+
+<div class="row mt-5">
+
+<h1 class="text-center">Your Saved Analyses</h1>
+<div class="col-4 my-3 mb-5 mt-5">
+
+	<h1>{{user.username|title}}</h1>
+	<h3>Remaining Credits: {{user.user_credits}}</h3>
+	<a href="{% url 'payment-page' %}" class="btn btn-info mb-3">Make payment</a> <a href="{% url 'account_email' %}" class="btn btn-primary mb-3">Change email</a>
+</div>
+
+
+<div id="contents" class="col-8">
+<div class="row my-3 mb-5 row-cols-1 row-cols-sm-2 g-4">
+{% for content in contents %}
+<div class="contents">
+<div class="col-12">
+  <div class="shadow bg-body rounded">
+    <div class="card text-center">
+		<h4 class="card-title m-5">
+			<p><b>Title:</b> {{content.name|truncatewords:5}}...</p>
+			<p><b>URL:</b> <a href="{{content.url}}">Link</a></p>
+			<p><b>Date Viewed:</b> {{content.created_at}}</p>
+		</h4>
+      </div>
+    </div>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+{% if page_obj.has_next and forloop.last %}
+<span hx-get="{% url '' %}?page={{ page_obj.next_page_number }}" hx-swap="beforeend" hx-target="#contents" hx-select=".contents" hx-trigger="revealed">
+</span>
+{% endif %}
+</div>
+
+</div>
+</div>
+
+
+{% endblock content %}

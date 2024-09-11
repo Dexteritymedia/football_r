@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+	<div class="col-12 text-center">
+		<h1>Advanced title search</h1><h1 class="display-1">Advanced title search</h1>
+		<h3>Discover IMDb's robust title search. Mix and match info to refine your searches. Looking for 1970s Canadian horror films rated above 6 by at least 100 users? Find them here. All fields below are optional, but at least one is needed for a search. For ranges (release date, votes), use 'min' for larger/after and 'max' for smaller/before. You can also press 'Enter' after checking a box or focusing on a field. To learn more please visit our help site and FAQs.</h3>
+	</div>
+	<div class="col-7 mt-5">
+			<form method="POST">
+				{% csrf_token %}
+							<div class="accordion" id="accordionExample">
+							{% for field in form %}	
+								<div class="accordion-item mb-3">
+									<h2 class="accordion-header" id="{{ field.id_for_label }}">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ field.id_for_label }}" aria-expanded="true" aria-controls="collapse{{ field.id_for_label }}">
+											<label class="col-sm-3 control-label">{{ field.label }}</label>
+										</button>
+										
+									</h2>
+									<div id="collapse{{ field.id_for_label }}" class="accordion-collapse" aria-labelledby="{{ field.id_for_label }}" data-bs-parent="#accordionExample">
+										{% if field.label == 'End Date' %}
+										fggghhh
+										{% endif %}
+									<div class="accordion-body">
+										{{ field.help_text }}
+										{{ field }}
+									</div>
+									</div>
+								</div>
+							{% endfor %}
+							</div>	
+							<button class="mt-3">Search</button>
+			</form>
+	</div>
+{% endblock content %}
+

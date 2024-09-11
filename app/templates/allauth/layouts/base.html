@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+    <body class="min-vh-100 d-flex flex-shrink-0 flex-column">
+	
+        <header data-bs-theme="dark">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        
+						
+                        <div class="d-lg-flex gap-2 col-lg-3 justify-content-lg-end text-nowrap">
+                            <form class="d-flex" method="post" action="{% url 'set_language' %}">
+                                {% csrf_token %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_current_language as LANGUAGE_CODE %}
+                                <select name="language" onchange="this.form.submit()">
+                                    {% get_language_info_list for LANGUAGES as languages %}
+                                    {% for lang in languages %}
+                                        <option {% if lang.code == LANGUAGE_CODE %}selected{% endif %}
+                                                value="{{ lang.code }}">{{ lang.name_local }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                            {% if user.is_authenticated %}
+                                {% url 'account_email' as email_url %}
+                                {% url 'socialaccount_connections' as socialaccount_url %}
+                                {% if email_url or socialaccount_url %}
+                                    <a href="{% if email_url %}{{ email_url }}{% else %}{{ socialaccount_url }}{% endif %}"
+                                       class="btn btn-secondary">Manage Account</a>
+                                {% endif %}
+                                <a href="{% url 'account_logout' %}" class="btn btn-danger">{% translate "Sign Out" %}</a>
+                            {% else %}
+                                <a href="{% url 'account_login' %}" class="btn btn-outline-light">{% translate "Sign In" %}</a>
+                                {% url 'account_signup' as signup_url %}
+                                {% if signup_url %}
+                                    <a href="{{ signup_url }}" class="btn btn-success">{% translate "Sign Up" %}</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+		
+        {% block body %}
+            {% block content %}
+            {% endblock content %}
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
+    </body>
+</html>

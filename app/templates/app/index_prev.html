@@ -1,0 +1,164 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+<meta content="Become a better Football Analyst" name="title">
+<meta content="Stay informed on your team historical match results, performances and find out intriguing and unique insights just like an experienced pundit " name="description">
+{% endblock meta_description %}
+
+{% block css %}
+	.gr {
+		color: linear-gradient(to right, red , yellow);
+	}
+	.gradient-color {
+		background: -webkit-linear-gradient(right, red , yellow);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.carousel .carousel-indicators button {
+		width: 10px;
+		height: 10px;
+		border-radius: 100%;
+	}
+	
+	#wrapper {
+        position: absolute;
+    }
+	.slick-slide {
+		margin: 0 10px;
+	}
+	a {
+		text-decoration: none;
+	}
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid py-5 mb-5" style="background: linear-gradient(rgba(53, 53, 53, .7), rgba(53, 53, 53, .7)), url({% static 'images/header.jpg' %}) center center no-repeat; background-size: cover;">
+        <div class="container py-5">
+			<h1>Become a better <span class="gradient-color">Football Analyst</span></h1>
+			<h4>Stay informed on your team historical match results, performances and find out intriguing and unique insights just like an experienced pundit </h4>
+			<a href="{% url 'match-search' %}" class="btn btn-outline-primary">Start Now</a>  
+        </div>
+</div>
+
+
+{% comment %}
+<div class="img-slider mb-5">
+	<div class="article">
+		<a href="{% url 'match-search' %}">
+			<img class="img-fluid" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+			<h3 class=" mt-3 text-center">Team head-to-head analysis</h3>
+		</a>
+	</div>
+	<div class="article">
+		<a href="{% url 'team-goal-search' %}">
+			<img class="img-fluid" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+			<h3 class=" mt-3 text-center">Team goal search</h3>
+		</a>
+	</div>
+	<div class="article">
+		<a href="{% url 'pl-team-list-page' %}">
+			<img class="img-fluid" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+			<h3 class="mt-3 text-center">Premier League teams</h3>
+		</a>
+	</div>
+</div>
+
+
+
+<div class="row text-center">
+  <h1>Plans that Unleash the Wow in Your Photos</h1>
+<h4>Choose the right plan for you and elevate your photos with the power
+of AI without any limitations.</h4>
+</div>
+{% endcomment %}
+
+<div class="img-slider">	
+	
+  <div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+	<img class="card-img" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+      <div class="card-body" style="color: #000;">
+	
+        <h1 class="card-title">Team Head-to-Head Analysis</h1>
+		<h2 style="font-size: 20px;"></h2>
+		
+        
+		<a href="{% url 'match-search' %}" type="submit" class="text-center btn btn-warning m-3" >View</a>	
+      </div>
+    </div>
+    </div>
+	</div>
+	
+	<div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+	<img class="card-img" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+      <div class="card-body" style="color: #000;">
+		
+        <h1 class="card-title">Premier League teams</h1>
+		<h2 style="font-size: 20px;"></h2>
+		
+		<a href="{% url 'pl-team-list-page' %}" type="submit" class="text-center btn btn-warning m-3" >View</a>		
+      </div>
+    </div>
+    </div>
+	</div>
+	
+	<div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+	<img class="card-img" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+      <div class="card-body" style="color: #000;">
+		
+        <h1 class="card-title">Team Goal Search</h1>
+		<h2 style="font-size: 20px;"></h2>
+		
+		<a href="{% url 'team-goal-search' %}" type="submit" class="text-center btn btn-warning m-3" >View</a>	
+      </div>
+    </div>
+    </div>
+	</div>
+	
+	<div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+	<img class="card-img" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+      <div class="card-body" style="color: #000;">
+		
+        <h1 class="card-title">Match and Goal Search</h1>
+		<h2 style="font-size: 20px;"></h2>
+		
+		<a href="{% url 'match-goal-search' %}" type="submit" class="text-center btn btn-warning m-3" >View</a>	
+      </div>
+    </div>
+    </div>
+	</div>
+	
+	<div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+	<img class="card-img" src="{% static 'images/header.jpg' %}" alt="A sample image"/>
+      <div class="card-body" style="color: #000;">
+		
+        <h1 class="card-title">Teams Goal Distribution Search</h1>
+		<h2 style="font-size: 20px;"></h2>
+		
+		<a href="{% url 'dist-goal-search' %}" type="submit" class="text-center btn btn-warning m-3" >View</a>	
+      </div>
+    </div>
+    </div>
+	</div>
+	
+  </div>  
+
+
+
+<script async="async" data-cfasync="false" src="//pl23383023.highcpmgate.com/9eb8cc7d386b25d3577662a96f56de78/invoke.js"></script>
+<div id="container-9eb8cc7d386b25d3577662a96f56de78"></div>
+
+
+	
+{% endblock content %}

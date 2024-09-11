@@ -1,0 +1,426 @@
+{% extends 'app/base.html' %}
+
+{% block meta_description %}
+<meta content="{{team.name}} {{current_season}}  Premier League Goals Stats: Detailed Analysis and Insights" name="title">
+<meta content="Explore {{team.name}}'s goal scoring stats in the Premier League for the {{current_season}} season. Get detail insights into top scorers, match performance, and historical data" name="description">
+{% endblock meta_description %}
+
+{% block content %}
+
+<div class="p-5">
+{% for season in seasons %}
+<a href="{% url 'goal-analysis-page' team.name team.slug season %}">{{season}} </a> |
+{% endfor %}
+</div>
+
+
+<div class="col mt-3">
+<h1>{{team_data.season.name}} {{team.name}} {{current_season}} Premier League Goals breakdown</h1>
+
+
+
+<h2 class="mt-3">Overview of {{team.name}}'s Goal Scoring Performance</h2>
+
+
+<div class="row mt-5">
+	<div class="col-4">
+		<img src="{{ team.logo_url }}" width="100px" height="100px" class="img-fluid" alt="{{ team.name }}">
+	</div>
+	
+<div class="col-8">
+{% for key, values in goals_scored.items %}
+{% if key == 'gs' %}
+<h3>Total goals scored: {{values}}</h3>
+{% endif %}
+{% if key == 'gc' %}
+<h3>Total goals conceded: {{values}}</h3>
+{% endif %}
+{% endfor %}
+
+<p></p>
+
+{% for key, values in home_goals_scored.items %}
+{% if key == 'gs' %}
+<h3>Home goals scored: {{values}}</h3>
+{% endif %}
+{% if key == 'gc' %}
+<h3>Home goals conceded: {{values}}</h3>
+{% endif %}
+{% endfor %}
+
+<p></p>
+
+{% for key, values in away_goals_scored.items %}
+{% if key == 'gs' %}
+<h3>Away goals scored: {{values}}</h3>
+{% endif %}
+{% if key == 'gc' %}
+<h3>Away goals conceded: {{values}}</h3>
+{% endif %}
+{% endfor %}
+
+<p></p>
+
+{% for key, values in clean_sheet.items %}
+{% if key == 'gc' %}
+<h3>Total clean sheet: {{values}}</h3>
+{% endif %}
+{% endfor %}
+
+<p></p>
+
+{% for key, values in max_min_goal.items %}
+{% if key == 'gs' %}
+<h3>Most goal scored in a single match: {{values}}</h3>
+{% endif %}
+{% if key == 'gc' %}
+<h3>Most goal conceded in a single match: {{values}}</h3>
+{% endif %}
+{% endfor %}
+
+<h3>Average Goal Scored: {{average_goal_scored}}</h3>
+<h3>Average Goal Conceded: {{average_goal_conceded}}</h3>
+</div>
+
+</div>
+
+</div>
+
+{% if next_five_years %}
+<h3 class="mt-5 text-center">{{team.name}} Previous Goal Stats</h3>
+
+{% for seasons in next_five_years %}
+<div class="row text-center">
+	<div class="col-4">
+		{{seasons.0}}
+	</div>
+	<div class="col-8">
+	{% for season in seasons %}
+	
+	
+		{% for s, g in season.items %} 
+			
+			{% if s == 'gs' %} 
+			<p>Goals scored:  {{g}}</p>
+			{% endif %}
+			{% if s == 'gc' %} 
+			<p>Goals conceded:  {{g}}</p>
+			{% endif %}
+			
+		{% endfor %}
+	
+	{% endfor %} 
+	</div>
+</div>
+<hr/>
+{% endfor %}
+
+{% endif %}
+
+
+{% if group_by_team_value %}
+
+<div class="mt-3">
+	<h1 class="text-center">{{team.name}} All Matches Performance Analysis</h1>
+	<div class="accordion accordion-flush" id="accordionFlushExample">
+	{% for key, values in group_by_team_value.items %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{key}}" aria-expanded="false" aria-controls="flush-collapseOne">
+        {% if key == 'L' %}
+			<h1>{{values|length}} Loses </h1>
+		{% elif key == 'W' %}
+			<h1>{{values|length}} Wins </h1>
+		{% elif key == 'D' %}
+			<h1>{{values|length}} Draws </h1>
+		{% else %}
+			<h1>{{values|length}}</h1>
+		{% endif %}
+      </button>
+    </h2>
+    <div id="flush-collapseOne{{key}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+	  <div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Club</th>
+					<th scope="col">Scoreline</th>
+					<th scope="col">MatchWeek</th>
+				</tr>
+			</thead>
+				{% for v in values %} 
+				<tbody>
+					<tr class="">
+					<td>{% comment %}<img src="{{ v.club_against.logo_url }}" width="50px" height="50px" class="img-fluid" alt="{{ v.club_against }}">{% endcomment %} {{v.club_against}}</td>
+					<td>{{ v.goals_scored }} - {{ v.goals_against }}</td>
+					{% if v.matchweek == 0 %}
+						<td>{{ v.tournament }}</td>
+					{% else %}
+						<td>MatchWeek: {{ v.matchweek }}</td>
+					{% endif %}
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% else %}
+	<h1 class="mt-5">Data doesn't exist</h1>
+{% endif %}
+
+
+
+{% if group_by_team_home_games %}
+
+<div class="mt-3">
+	<h2 class="text-center">{{team.name}} Home Match Performance Analysis</h2>
+	<div class="accordion accordion-flush" id="accordionFlushExampleHome">
+	{% for key, values in group_by_team_home_games.items %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{key}}" aria-expanded="false" aria-controls="flush-collapse{{key}}">
+        {% if key == 'L' %}
+			<h1>{{values|length}} Loses </h1>
+		{% elif key == 'W' %}
+			<h1>{{values|length}} Wins </h1>
+		{% elif key == 'D' %}
+			<h1>{{values|length}} Draws </h1>
+		{% else %}
+			<h1>{{values|length}}</h1>
+		{% endif %}
+      </button>
+    </h2>
+    <div id="flush-collapse{{key}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExampleHome">
+	  <div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Club</th>
+					<th scope="col">Scoreline</th>
+					<th scope="col">MatchWeek</th>
+				</tr>
+			</thead>
+				{% for v in values %} 
+				<tbody>
+					<tr class="">
+					<td>{% comment %}<img src="{{ v.club_against.logo_url }}" width="50px" height="50px" class="img-fluid" alt="{{ v.club_against }}">{% endcomment %} {{v.club_against}}</td>
+					<td>{{ v.goals_scored }} - {{ v.goals_against }}</td>
+					{% if v.matchweek == 0 %}
+						<td>{{ v.tournament }}</td>
+					{% else %}
+						<td>MatchWeek: {{ v.matchweek }}</td>
+					{% endif %}
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% else %}
+	<h1 class="mt-5">Data doesn't exist</h1>
+{% endif %}
+
+
+{% if group_by_team_away_games %}
+
+<div class="mt-3">
+	<h2 class="text-center">{{team.name}} Away Match Performance Analysis</h2>
+	<div class="accordion accordion-flush" id="accordionFlushExampleAway">
+	{% for key, values in group_by_team_away_games.items %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAway{{key}}" aria-expanded="false" aria-controls="flush-collapseOne">
+        {% if key == 'L' %}
+			<h1>{{values|length}} Loses </h1>
+		{% elif key == 'W' %}
+			<h1>{{values|length}} Wins </h1>
+		{% elif key == 'D' %}
+			<h1>{{values|length}} Draws </h1>
+		{% else %}
+			<h1>{{values|length}}</h1>
+		{% endif %}
+      </button>
+    </h2>
+    <div id="flush-collapseAway{{key}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExampleAway">
+	  <div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Club</th>
+					<th scope="col">Scoreline</th>
+					<th scope="col">MatchWeek</th>
+				</tr>
+			</thead>
+				{% for v in values %} 
+				<tbody>
+					<tr class="">
+					<td>{% comment %}<img src="{{ v.club_against.logo_url }}" width="50px" height="50px" class="img-fluid" alt="{{ v.club_against }}">{% endcomment %} {{v.club_against}}</td>
+					<td>{{ v.goals_scored }} - {{ v.goals_against }}</td>
+					{% if v.matchweek == 0 %}
+						<td>{{ v.tournament }}</td>
+					{% else %}
+						<td>MatchWeek: {{ v.matchweek }}</td>
+					{% endif %}
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% else %}
+	<h1 class="mt-5">Data doesn't exist</h1>
+{% endif %}
+
+
+<canvas id="goal-chart" height="500" data-url="{% url 'goal-chart' team.name current_season %}"></canvas> 
+  
+{% comment %}
+{% for gd in goal_diff %}
+<p>MatchWeek: {{gd.matchweek}}  Goal Difference: {{gd.gd}}</p>
+{% endfor %}
+{% endcomment %}
+
+
+{% if team_goal_analysis %}
+<div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Team</th>
+					<th scope="col">Goals Conceded</th>
+					<th scope="col">Goals Scored</th>
+					<th scope="col">Percentage contribution to total goals conceded</th>
+					<th scope="col">Percentage contribution to total goals Scored</th>
+				</tr>
+			</thead>
+				{% for items in team_goal_analysis %}
+				<tbody>
+					<tr class="">
+					<td><a href="{% url 'goal-analysis-page' items.0 items.1 current_season %}">{{items.0}}</a></td>
+					<td>{{items.2}}</td>
+					<td>{{items.3}}</td>
+					<td>{{items.4}}</td>
+					<td>{{items.5}}</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+{% endif %}
+
+{% comment %}
+
+{% for key, values in group_by_value.items %}
+ {% for v in values %} <p>{{v.club_against.name}} {{v.goals_scored}}</p> {% endfor %}
+{% endfor %}
+
+{% endcomment %}
+
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+$(function () {
+
+      var $populationChart = $("#goal-chart")
+      $.ajax({
+        url: $populationChart.data("url"),
+        success: function (data) {
+
+          var ctx = $populationChart[0].getContext("2d");
+
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Goals',
+                //backgroundColor: 'blue',
+				backgroundColor: "#79AEC8",
+				borderColor: "rgba(255, 99, 132, 0.2)",
+                data: data.data,
+				//borderWidth: 2,
+                fill: 'start'
+              }]          
+            },
+            options: {
+				scales: {
+					x: {
+						ticks: {
+							color: 'white',
+						},
+						title: {
+							display: true,
+							color: 'white',
+							text: 'MatchWeek' // Name of x-axis
+						},
+					},
+					y: {
+						ticks: {
+							color: 'white',
+						},
+						title: {
+							display: true,
+							color: 'white',
+							text: 'Goals Difference' // Name of x-axis
+						},
+					},
+				},
+				plugins: {
+					title: {
+						display: true,
+						text: "{{team.name}}'s {{current_season }} Premier League Goals Difference Scored in Bar Chart",
+						color: 'white',
+						padding: {
+							//top: 10,
+							//bottom: 30
+						},
+						font: {
+							size: 20,
+						},
+					},
+					subtitle: {
+						//display: true,
+						//text: '{{team.name}} Premier League Cumulative Goals Scored in Bar Chart'
+					},
+					legend: {
+						labels: {
+							// This more specific font property overrides the global property
+							font: {
+								size: 20,
+								weight: 'bolder',
+								color: 'white',
+							}
+						}
+					}
+				},
+    
+            }
+          });
+
+        }
+      });
+
+    });
+	
+</script>
+{% endblock js %}
+	
+{% endblock content %}

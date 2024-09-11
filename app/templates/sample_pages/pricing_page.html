@@ -1,0 +1,198 @@
+{% extends 'app/base.html' %}
+
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+{% block css %}
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .alert {
+            display: none;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f44336; /* Red */
+            color: white;
+            width: 90%;
+            text-align: center;
+        }
+
+        .pricing-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .pricing-plan {
+            background-color: #1e1e1e;
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-plan.selected {
+            border-color: #ff9800; /* Highlighted border color */
+            transform: scale(1.05);
+        }
+
+        .pricing-plan h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .pricing-plan p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #b3b3b3;
+        }
+
+        button {
+            background-color: #ff9800; /* Button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e68900; /* Darker on hover */
+        }
+		
+		ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    color: #bbbbbb; /* Lighter color for list items */
+}
+ {% endblock css %}
+ 
+ {% block content %}
+
+    <!-- Alert message section -->
+    <div id="alert-message" class="alert">
+        Please log in to select a plan.
+    </div>
+
+    <!-- Pricing Plans -->
+    <div class="pricing-container">
+		<h1>Our Pricing Plans</h1>
+        <div class="toggle-container">
+            <input type="radio" id="monthly" name="plan-toggle" checked>
+            <input type="radio" id="yearly" name="plan-toggle">
+            <label for="monthly">Monthly</label>
+            <label for="yearly">Yearly</label>
+            <div class="toggle"></div>
+        </div>
+        <div class="pricing-plan selected">
+            <h2>Standard Plan</h2>
+            <p>$25/month</p>
+            <button class="subscribe-btn" data-plan="standard-monthly">Choose Plan</button>
+        </div>
+        <div class="pricing-plan">
+            <h2>Premium Plan</h2>
+            <p>$50/month</p>
+			<ul>
+				<li>Feature 1</li>
+                <li>Feature 2</li>
+                <li>Feature 3</li>
+                <li>Feature 4</li>
+            </ul>
+            <button class="subscribe-btn" data-plan="premium-monthly">Choose Plan</button>
+        </div>
+        <div class="pricing-plan">
+            <h2>Enterprise Plan</h2>
+            <p>$100/month</p>
+            <button class="subscribe-btn" data-plan="enterprise-monthly">Choose Plan</button>
+        </div>
+    </div>
+
+{% block js %}
+	<script>
+        const monthlyPrices = {
+            basic: "$5/month",
+            standard: "$15/month",
+            premium: "$30/month"
+        };
+
+        const yearlyPrices = {
+            basic: "$50/year",
+            standard: "$150/year",
+            premium: "$300/year"
+        };
+
+        const monthlyRadio = document.getElementById('monthly');
+        const yearlyRadio = document.getElementById('yearly');
+
+        const basicPrice = document.getElementById('basic-price');
+        const standardPrice = document.getElementById('standard-price');
+        const premiumPrice = document.getElementById('premium-price');
+
+        function updatePrices() {
+            if (yearlyRadio.checked) {
+                basicPrice.innerText = yearlyPrices.basic;
+                standardPrice.innerText = yearlyPrices.standard;
+                premiumPrice.innerText = yearlyPrices.premium;
+            } else {
+                basicPrice.innerText = monthlyPrices.basic;
+                standardPrice.innerText = monthlyPrices.standard;
+                premiumPrice.innerText = monthlyPrices.premium;
+            }
+        }
+
+        monthlyRadio.addEventListener('change', updatePrices);
+        yearlyRadio.addEventListener('change', updatePrices);
+    </script>
+	
+    <script>
+        $(document).ready(function() {
+            const userLoggedIn = "{{ user.is_authenticated|yesno:'true,false' }}";
+
+            $('.subscribe-btn').on('click', function() {
+                if (userLoggedIn === "false") {
+                    // Show the alert message
+                    $('#alert-message').show();
+
+                    // Store the current page URL and redirect to the login page with the 'next' parameter
+                    const nextUrl = window.location.href;
+                    window.location.href = "/accounts/login/?next=" + encodeURIComponent(nextUrl);
+                } else {
+                    // Proceed with the plan selection
+                    const selectedPlan = $(this).data('plan');
+
+                    // Make an AJAX request to send the selected plan to the backend
+                    $.post('/confirm-plan/', {plan: selectedPlan}, function(response) {
+                        // Handle the response, e.g., showing a success message
+                        alert(response.message);
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock js %}
+
+{% endblock content %}

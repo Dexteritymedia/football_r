@@ -1,0 +1,305 @@
+{% extends 'app/base.html' %}
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+{% block css %}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Dark background color */
+    color: #e0e0e0; /* Light text color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.pricing-container {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ffffff; /* White text for the heading */
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.toggle-container input {
+    display: none;
+}
+
+.toggle-container label {
+    padding: 10px 20px;
+    background-color: #333; /* Darker background for labels */
+    color: #e0e0e0; /* Light text color for labels */
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+    z-index: 2;
+}
+
+.toggle-container .toggle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 50%;
+    background-color: #007bff; /* Accent color */
+    border-radius: 5px 5px 0 0;
+    transition: left 0.3s ease;
+}
+
+#yearly:checked ~ .toggle {
+    left: 50%;
+}
+
+#monthly:checked ~ .toggle {
+    left: 0;
+}
+
+#monthly:checked ~ label[for="monthly"] {
+    background-color: #007bff; /* Highlighted background for selected tab */
+    color: #ffffff; /* White text for selected tab */
+}
+
+#yearly:checked ~ label[for="yearly"] {
+    background-color: #007bff; /* Highlighted background for selected tab */
+    color: #ffffff; /* White text for selected tab */
+}
+
+.pricing-table {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background-color: #1e1e1e; /* Dark background for cards */
+    border-radius: 10px;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pricing-card.default-card {
+    border: 2px solid #333; /* Border for the default card */
+}
+
+.pricing-card.standard-card {
+    /* Border for the standard card */
+    box-shadow: 0px 0px 15px rgba(0, 123, 255, 0.5); /* Light shadow for emphasis */
+	border-color: #ff9800; /* Highlighted border color */
+    transform: scale(1.05);
+}
+        
+
+.pricing-card:hover {
+    transform: scale(1.05);
+}
+
+.pricing-card h2 {
+    margin-bottom: 15px;
+    color: #ffffff; /* White text for card titles */
+}
+
+.price {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff; /* White text for prices */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    color: #bbbbbb; /* Lighter color for list items */
+}
+
+button {
+    background-color: #ff9800; /* Accent color */
+    color: #ffffff; /* White text for button */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.pricing-button {
+            background-color: #ff9800; /* Button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+			transition: background-color 0.3s ease;
+        }
+
+button:hover {
+    background-color: #0056b3; /* Darker shade of accent color on hover */
+}
+
+@media (max-width: 768px) {
+    .pricing-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 500px) {
+    .pricing-card {
+        width: 100%;
+    }
+
+    .toggle-container label {
+        padding: 10px 15px;
+    }
+
+    .toggle-container .toggle {
+        width: calc(50% - 10px);
+    }
+}
+{% endblock css %}
+
+{% block content %}
+  
+ <div class="pricing-container">
+        <h1>Our Pricing Plans</h1>
+        <div class="toggle-container">
+            <input type="radio" id="monthly" name="plan-toggle" checked>
+            <input type="radio" id="yearly" name="plan-toggle">
+            <label for="monthly">Monthly</label>
+            <label for="yearly">Yearly</label>
+            <div class="toggle"></div>
+        </div>
+        <div class="pricing-table">
+            <div class="pricing-card default-card">
+                <h2>Basic Plan</h2>
+                <div class="price">$5</div>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                </ul>
+                <div id="paypal-button-container-basic"></div>
+            </div>
+            <div class="pricing-card standard-card">
+                <h2>Standard Plan</h2>
+                <div class="price">$15</div>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+                <div id="paypal-button-container-standard"></div>
+            </div>
+            <div class="pricing-card">
+                <h2>Premium Plan</h2>
+                <div class="price">$30</div>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                    <li>Feature 4</li>
+                </ul>
+                <div id="paypal-button-container-premium"></div>
+            </div>
+        </div>
+    </div>
+
+{% block js %}
+
+	<script>
+        const monthlyPrices = {
+            basic: "$5/month",
+            standard: "$15/month",
+            premium: "$30/month"
+        };
+
+        const yearlyPrices = {
+            basic: "$50/year",
+            standard: "$150/year",
+            premium: "$300/year"
+        };
+
+        const monthlyRadio = document.getElementById('monthly');
+        const yearlyRadio = document.getElementById('yearly');
+
+        const basicPrice = document.getElementById('basic-price');
+        const standardPrice = document.getElementById('standard-price');
+        const premiumPrice = document.getElementById('premium-price');
+
+        function updatePrices() {
+            if (yearlyRadio.checked) {
+                basicPrice.innerText = yearlyPrices.basic;
+                standardPrice.innerText = yearlyPrices.standard;
+                premiumPrice.innerText = yearlyPrices.premium;
+            } else {
+                basicPrice.innerText = monthlyPrices.basic;
+                standardPrice.innerText = monthlyPrices.standard;
+                premiumPrice.innerText = monthlyPrices.premium;
+            }
+        }
+
+        monthlyRadio.addEventListener('change', updatePrices);
+        yearlyRadio.addEventListener('change', updatePrices);
+    </script>
+	
+    <!-- PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script>
+        function initPayPalButtons(planId, amount) {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: amount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Transaction completed by ' + details.payer.name.given_name);
+                        // Redirect to your Django success page or handle it here
+                        window.location.href = "/payments/success/";
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal Checkout error:', err);
+                    // Redirect to your Django error page or handle it here
+                    window.location.href = "/payments/error/";
+                }
+            }).render('#paypal-button-container-' + planId);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initPayPalButtons('basic', '5.00');
+            initPayPalButtons('standard', '15.00');
+            initPayPalButtons('premium', '30.00');
+        });
+    </script>
+{% endblock js %}
+
+{% endblock content %}

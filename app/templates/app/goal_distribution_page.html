@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+
+
+{% block meta_description %}
+<meta content="Premier League Goal Stats: Match Results by Goal" name="title">
+<meta content="Discover detailed Premier League teams match results. Select a team, input the number of goals count and date to see wins, stats, and more. Stay updated with your team performance." name="description">
+{% endblock meta_description %}
+
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+{% block content %}
+<div class="text-center mt-5">
+<h1>Premier League Goal Stats: Goals Breakdown by Teams</h1>
+<h4 class="mt-4">Find out detailed Premier League teams goals analysis. Select a team to see the number of goals scored and conceded. Stay updated with your team performance.</h4></div>
+	<div class="col-md-6 col-12 p-3">
+			<form method="GET" action="">
+				<div class="row">
+				{% for field in form %}
+					{% if field.is_hidden %}
+						{% else %}
+						<div class="col-md-12 col-12 mb-3">
+							<h5 class="display-6">{{ field.label_tag }} 
+							{% if field.field.required %}
+									<span style="color: red;">*</span>
+								{% endif %}
+								{{ field }}</h5>
+						</div>
+						{% endif %}
+				{% endfor %}
+				</div>
+				<div>
+					<button type="submit" class="btn btn-outline-primary mt-3">Search</button>
+				</div>
+			</form>
+	</div>
+{% endblock content %}

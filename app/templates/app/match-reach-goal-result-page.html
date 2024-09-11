@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+
+{% load adsterra_tags %}
+
+{% block facebook_meta %}
+	<meta property="og:title"         content=""/>
+    <meta property="og:description"   content="{% if date %} {{club}} all match results with {{goals}} goals from {{date}} {% else %} {{club}} all match results with {{goals}} goals {% endif %}" />
+{% endblock facebook_meta %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% if table %}
+
+<div class="col-3">
+<div class="icon-bar">
+    <p> <b>Share</b></p>
+  <a data-href="{{ request.build_absolute_uri }}"
+data-layout="button_count" class="facebook"><i class='fab fa-facebook-f' style="font-size:24px"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="twitter"><i class="fab fa-twitter"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="reddit"><i class="fab fa-reddit"></i></a>
+</div>
+</div>
+<div class="col-9"></div>
+
+<div class="text-center mt-5">
+<h3>{{club}}'s number of matches to {% if goals == 'GF' %} score {% else %} concede {% endif %} "{{no_of_goals}}" {{ground}} Goals </h3>
+</div>
+
+<div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Season</th>
+					{% if goals == 'GF' %}
+					<th scope="col"> Number of matches to score "{{no_of_goals}}"</th>
+					{% else %}
+					<th scope="col">Number of matches to concede "{{no_of_goals}}"</th>
+					{% endif %}
+					
+				</tr>
+			</thead>
+				{% for result in table %}
+				<tbody>
+					<tr class="">
+					<td>{{result.0}}</td>
+					<td>{{result.1}}</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+
+{% else %}
+	<h1 class="mt-5">No results for your search</h1>
+{% endif %}
+{% endblock content %}

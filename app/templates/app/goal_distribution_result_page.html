@@ -1,0 +1,81 @@
+{% extends 'app/base.html' %}
+
+{% load adsterra_tags %}
+
+{% block facebook_meta %}
+	<meta property="og:title"         content=""/>
+    <meta property="og:description"   content="All {{club}}'s {% if tournament %} {{tournament}} {% endif %} {% if ground %} {{ground}} {% endif %} goals {% if date %}from {{date}}{% endif %}" />
+{% endblock facebook_meta %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% if results %}
+{% if user.is_authenticated %}
+<div class="col-12 mt-5">
+	<form method="post" action="{% url 'dist-goal-search' %}">
+		{% csrf_token %}
+		<input type="hidden" name="url" value="{{ request.build_absolute_uri }}" id="url">
+		<input type="hidden" name="name" value="All {{club}}'s {% if tournament %} {{tournament}} {% endif %} {% if ground %} {{ground}} {% endif %}goals {% if date %}from {{date}}{% endif %} across {{no_of_teams}} Teams" id="name">
+		<button type="submit" class="btn btn-outline-primary mt-3">Save this result</</button>
+	</form>
+</div>
+{% else %}
+<div class="col-12 mt-5">
+<h3><a href="{% url 'account_login' %}">Login</a> to save this results</h3>
+</div>
+{% endif %}
+
+<div class="col-3">
+<div class="icon-bar">
+    <p> <b>Share</b></p>
+  <a data-href="{{ request.build_absolute_uri }}"
+data-layout="button_count" class="facebook"><i class='fab fa-facebook-f' style="font-size:24px"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="twitter"><i class="fab fa-twitter"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
+  <a href="{{ request.build_absolute_uri }}" class="reddit"><i class="fab fa-reddit"></i></a>
+</div>
+</div>
+<div class="col-9"></div>
+
+<div class="text-center mt-5">
+<h3>All {{club}}'s {% if tournament %} {{tournament}} {% endif %} {% if ground %} {{ground}} {% endif %} goals {% if date %}from {{date}}{% endif %} across {{no_of_teams}} Teams</h3>
+<h1>Total Goals Scored: {{total_goals_scored}} - Total Goals Conceded: {{total_goals_conceded}} </h1>
+
+</div>
+
+<div class="table-responsive mt-3">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Team</th>
+					<th scope="col">Goals Conceded</th>
+					<th scope="col">Goals Scored</th>
+					<th scope="col">Percentage contribution to total goals conceded</th>
+					<th scope="col">Percentage contribution to total goals scored</th>
+					<th scope="col">Goal Difference</th>
+				</tr>
+			</thead>
+				{% for result in results %}
+				<tbody>
+					<tr class="">
+					<td><a>{{result.0}}</a></td>
+					<td>{{result.1}}</td>
+					<td>{{result.2}}</td>
+					<td>{{result.3}}</td>
+					<td>{{result.4}}</td>
+					<td>{{result.5}}</td>
+					<td>{{result.6}}</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+		</table>
+	</div>
+
+{% else %}
+	<h1 class="mt-5">No results for your search</h1>
+{% endif %}
+{% endblock content %}

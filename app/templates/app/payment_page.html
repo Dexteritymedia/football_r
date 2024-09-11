@@ -1,0 +1,345 @@
+{% extends 'app/base.html' %}
+
+{% block ads_script %}
+{% endblock ads_script %}
+{% block ads %}
+{% endblock ads %}
+{% block ads_ %}
+{% endblock ads_ %}
+
+
+{% block css %}
+body {
+    background-color: #121212;
+	color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.alert {
+            display: none;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f44336; /* Red */
+            color: white;
+            width: 90%;
+            text-align: center;
+        }
+
+.pricing-container {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.toggle-container input {
+    display: none;
+}
+
+.toggle-container label {
+    padding: 10px 20px;
+    background-color: #333;
+	color: #e0e0e0;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+    z-index: 2;
+}
+
+.toggle-container .toggle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 50%;
+    background-color: #ff9800;
+    border-radius: 5px 5px 0 0;
+    transition: left 0.3s ease;
+}
+
+#yearly:checked ~ .toggle {
+    left: 50%;
+}
+
+#monthly:checked ~ .toggle {
+    left: 0;
+}
+
+#monthly:checked ~ label[for="monthly"] {
+    background-color: #ff9800;
+    color: white;
+}
+
+#yearly:checked ~ label[for="yearly"] {
+    background-color: #ff9800;
+    color: white;
+}
+
+.pricing-table {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: scale(1.05);
+}
+
+.pricing-card.selected {
+	border: 2px solid #333;
+    border-color: #ff9800; /* Highlighted border color */
+}
+
+.pricing-card h2 {
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.price {
+    font-size: 24px;
+    margin-bottom: 20px;
+	color: #ffffff;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.pricing-button {
+            background-color: #ff9800; /* Button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+		
+button.pricing-button:hover {
+    background-color: #e68900;
+}
+
+@media (max-width: 768px) {
+    .pricing-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 500px) {
+    .pricing-card {
+        width: 100%;
+    }
+
+    .toggle-container label {
+        padding: 10px 15px;
+    }
+
+    .toggle-container .toggle {
+        width: calc(50% - 10px);
+    }
+}
+{% endblock css %}
+
+{% block content %}
+
+<!-- Alert message section -->
+	<div id="alert-message" class="mt-5 alert alert-warning">
+		<strong>Please log in to select a plan.</strong>
+    </div>
+  
+ <div class="pricing-container mt-5">
+        <h1>Our Pricing Plans</h1>
+        <div class="toggle-container">
+            <input type="radio" id="monthly" name="billing" checked>
+            <label for="monthly">Monthly</label>
+            <input type="radio" id="yearly" name="billing">
+            <label for="yearly">Yearly <p>Save 30%</p></label>
+            <div class="toggle"></div>
+        </div>
+        <div class="pricing-table">
+			<div class="pricing-card" data-plan="free">
+                <h2>Free</h2>
+                <p class="price" id="free-price">$0</p>
+				{% if not user.is_authenticated %}
+					<a href="{% url 'account_login' %}" style="text-decoration: none;"><button class="pricing-button">Login</button></a>
+				{% endif %}
+            </div>
+            <div class="pricing-card" data-plan="basic" data-credit="10" data-monthly="5" data-yearly="42">
+                <h2>Basic</h2>
+                <p class="price" id="basic-price">$5/month</p>
+                <button class="pricing-button" onclick="selectPlan('basic')">Choose Plan</button>
+            </div>
+            <div class="pricing-card selected" data-plan="standard" data-credit="100" data-monthly="15" data-yearly="126">
+                <h2>Standard</h2>
+                <p class="price" id="standard-price">$15/month</p>
+                
+                <button class="pricing-button" onclick="selectPlan('standard')">Choose Plan</button>
+            </div>
+			
+            <div class="pricing-card" data-plan="premium" data-credit="1000" data-monthly="30" data-yearly="252">
+                <h2>Premium</h2>
+                <p class="price" id="premium-price">$30/month</p>
+                
+                <button class="pricing-button" onclick="selectPlan('premium')">Choose Plan</button>
+            </div>
+        </div>
+    </div>
+	
+	 <form id="planForm" method="post" action="/confirm-plan/" style="display:none;">
+		{% csrf_token %}
+        <input type="hidden" name="plan" id="planInput">
+        <input type="hidden" name="price" id="priceInput">
+		<input type="hidden" name="credit_score" id="creditInput">
+    </form>
+
+{% endblock content %}
+
+{% block js %}
+    <script>
+        const monthlyPrices = {
+            basic: "$5/month",
+            standard: "$15/month",
+            premium: "$30/month"
+        };
+
+        const yearlyPrices = {
+            basic: "$42/year",
+            standard: "$126/year",
+            premium: "$252/year"
+        };
+
+        const monthlyRadio = document.getElementById('monthly');
+        const yearlyRadio = document.getElementById('yearly');
+
+        const basicPrice = document.getElementById('basic-price');
+        const standardPrice = document.getElementById('standard-price');
+        const premiumPrice = document.getElementById('premium-price');
+
+        function updatePrices() {
+            if (yearlyRadio.checked) {
+                basicPrice.innerText = yearlyPrices.basic;
+                standardPrice.innerText = yearlyPrices.standard;
+                premiumPrice.innerText = yearlyPrices.premium;
+            } else {
+                basicPrice.innerText = monthlyPrices.basic;
+                standardPrice.innerText = monthlyPrices.standard;
+                premiumPrice.innerText = monthlyPrices.premium;
+            }
+        }
+
+        monthlyRadio.addEventListener('change', updatePrices);
+        yearlyRadio.addEventListener('change', updatePrices);
+    </script>
+	
+	<script>
+	const userLoggedIn = "{{ user.is_authenticated|yesno:'true,false' }}";
+	console.log(userLoggedIn)
+	function selectPlan(plan) {
+		if (userLoggedIn === "false") {
+                    // Show the alert message
+                    $('#alert-message').show();
+
+                    // Store the current page URL and redirect to the login page with the 'next' parameter
+                    const nextUrl = window.location.href;
+                    window.location.href = "/accounts/login/?next=" + encodeURIComponent(nextUrl);
+                } else {
+				
+            const planElement = document.querySelector(`.pricing-card[data-plan="${plan}"]`);
+			console.log(planElement)
+            const isYearly = yearlyRadio.checked;
+			console.log(isYearly)
+            const price = isYearly ? planElement.dataset.yearly : planElement.dataset.monthly;
+            const credit = isYearly ? planElement.dataset.credit : planElement.dataset.credit;
+
+            document.getElementById('planInput').value = plan;
+            document.getElementById('priceInput').value = price;
+            document.getElementById('creditInput').value = credit;
+            document.getElementById('creditInput').value = credit;
+
+            document.getElementById('planForm').submit();
+        }
+	}
+    </script>
+	
+	    <!-- PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script>
+        function initPayPalButtons(planId, amount) {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: amount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Transaction completed by ' + details.payer.name.given_name);
+                        // Redirect to your Django success page or handle it here
+                        window.location.href = "/payments/success/";
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal Checkout error:', err);
+                    // Redirect to your Django error page or handle it here
+                    window.location.href = "/payments/error/";
+                }
+            }).render('#paypal-button-container-' + planId);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initPayPalButtons('basic', '5.00');
+            initPayPalButtons('standard', '15.00');
+            initPayPalButtons('premium', '30.00');
+        });
+    </script>
+	
+	
+{% endblock js %}

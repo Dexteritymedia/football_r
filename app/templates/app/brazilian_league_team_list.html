@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<div class="container">
+<div class="row my-3 mb-5 row-cols-1 row-cols-3 g-4">
+
+
+{% for team in teams %}
+<div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+      <div class="card-body" style="color: black;">
+		<h4 class="card-title"><img src="{{ team.logo_url }}" width="100px" height="100px" class="img-fluid" alt="{{ team.name }}">
+		<a href="{% url 'goal-analysis-page' team.name team.slug season.name %}">{{team.name}}</a></h4>
+      </div>
+    </div>
+    </div>
+ </div>
+
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}

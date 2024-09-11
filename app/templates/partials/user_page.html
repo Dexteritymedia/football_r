@@ -1,0 +1,17 @@
+<div class="col-8">
+	{% for content in contents %}
+		URL: {{content}}
+		<p>URL: <a href="">{{content.url}}</a></p>
+		<p>Date Viewed: {{content.created_at}}</p>
+	{% endfor %}
+</div>
+
+<div class="pagination">
+    {% if contents.has_previous %}
+        <button hx-get="?page={{ contents.previous_page_number }}" hx-target="#table-container">Previous</button>
+    {% endif %}
+    <span>Page {{ contents.number }} of {{ contents.paginator.num_pages }}</span>
+    {% if contents.has_next %}
+        <button hx-get="?page={{ contents.next_page_number }}" hx-target="#table-container">Next</button>
+    {% endif %}
+</div>

@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+
+{% block css %}
+.bg-custom-color {
+	background-image: linear-gradient(#FFFDD0, #FFFFDF);
+}
+{% endblock css %}
+
+{% block content %}
+  
+  <div class="row text-center mt-3">
+  
+</div>
+
+<div class="container">
+<div class="row my-3 mb-5 row-cols-1 row-cols-md-3 g-4">
+
+		
+  <div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+      <div class="card-body" style="color: black;">
+		<h4 class="card-title">Free Plan</h4>
+        <h1 class="card-title">$0</h1>
+		<div>
+					
+					<span>&#10003;</span>
+						<small class=" mx-2 mb-5"> {{ f.feature }}</small>
+						<p></p>
+					
+				</div>
+      </div>
+    </div>
+    </div>
+	<div id="smart-button-container">
+          <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+  </div>
+  
+  <div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+      <div class="card-body" style="color: black;">
+		<h4 class="card-title">6 Month Plan</h4>
+        <h1 class="card-title">$89.94</h1>
+		<button type="submit" class="text-center btn btn-outline-success m-3 payment-plan" data-id= "{{ plan.id }}" data-plan="{{ plan.plan }}" data-amount="{{ plan.amount }}">Pay Now</button>
+		<div>
+					
+					<span>&#10003;</span>
+						<small class=" mx-2 mb-5"> {{ f.feature }}</small>
+						<p></p>
+					
+				</div>
+      </div>
+    </div>
+    </div>
+	<div id="smart-button-container">
+          <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+  </div>
+  
+  <div class="col">
+  <div class="shadow bg-body rounded">
+    <div class="card bg-custom-color mb-3">
+      <div class="card-body" style="color: black;">
+		<h4 class="card-title">Lifetime Plan</h4>
+        <h1 class="card-title">$149.99</h1>
+		<button type="submit" class="text-center btn btn-outline-success m-3 payment-plan" data-id= "{{ plan.id }}" data-plan="{{ plan.plan }}" data-amount="{{ plan.amount }}">Pay Now</button>
+		<div>
+					
+					<span>&#10003;</span>
+						<small class=" mx-2 mb-5"> {{ f.feature }}</small>
+						<p></p>
+					
+				</div>
+      </div>
+    </div>
+    </div>
+	<div id="smart-button-container">
+          <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+  </div>
+  </div>
+
+ 
+ </div> 
+{% endblock content %}
